@@ -7,9 +7,9 @@ const ArticleList = () => {
 
   useEffect(() => {
     const fetchArticles = async() => {
-
+      const apiKey = process.env.REACT_APP_NEWS_API_KEY;
       try{
-        const res = await fetch('https://newsapi.org/v2/everything?q=bitcoin&apiKey=3d7ed99245e84ea193674c7f127002b4');
+        const res = await fetch(`https://newsapi.org/v2/everything?q=bitcoin&apiKey=${apiKey}`);
         const data = await res.json();
         setArticles(data.articles)
       }
