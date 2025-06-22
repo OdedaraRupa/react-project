@@ -41,12 +41,12 @@ const Card = ({formData,side,flip}) => {
             <div className="detail-container">
               <div className="top-left-card">
                 <p>Credit Card</p>
-                <img className="chip-icon" src={chip} />
+                <img alt="icon" className="chip-icon" src={chip} />
               </div>
 
               <div className="payment-icon">
-                <img className={`method1-${getCardType()}`} src={visaLogo} />
-                <img className={`method-${getCardType()}`} src={master} />
+                <img alt="icon" className={`method1-${getCardType()}`} src={visaLogo} />
+                <img alt="icon" className={`method-${getCardType()}`} src={master} />
               </div>
             </div>
             <div className="number-display">
@@ -71,7 +71,7 @@ const Card = ({formData,side,flip}) => {
 
       {side === "back" && (
         <div className={`back-side card ${flip ? "flip" : null}`}>
-          <img className="touch-logo" src={touch} />
+          <img alt="icon" className="touch-logo" src={touch} />
           <div className="bar"></div>
           <div id="cvv-display">
             <p>{formData.cvv}</p>
