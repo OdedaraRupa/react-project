@@ -12,16 +12,18 @@ import CourseCard from "./CourseCard";
 import SortDropdown from "./SortDropdown";
 import Pagination from "./Pagination";
 import SearchBar from "./SearchBar";
+
 const CourseList = ({ data, defaultSortingOrder, defaultPagination }) => {
   // Searching Operation
   const [searchQuery, setSearchQuery] = useState("");
-
+ 
   // Sorting
   const [sortOrder, setSortOrder] = useState(defaultSortingOrder);
   const [sortedData, setSortedData] = useState(data);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemPerPage] = useState(Number(defaultPagination));
 
+ 
   useEffect(() => {
     const filterData = data.filter((course) => {
       const query = searchQuery.toLowerCase();
