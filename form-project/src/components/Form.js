@@ -14,24 +14,44 @@ const Form = () => {
     gender: "",
     courseType: "",
     skills: [],
-   
+    expirymonth: "",
+    expiryyear: "",
   });
 
   const handleChange = (name, value) => {
-    if (name === "skills") {
-      setFormData((prev) => {
-        const updated = prev.skills.includes(value)
-          ? prev.skills.filter((item) => item !== value)
-          : [...prev.skills, value];
-        return { ...prev, skills: updated };
-      });
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
+  if (name === "skills") {
+    setFormData((prev) => {
+      const updatedSkills = prev.skills.includes(value)
+        ? prev.skills.filter((item) => item !== value)
+        : [...prev.skills, value];
+
+      // Update formData
+      const updatedFormData = { ...prev, skills: updatedSkills };
+
+      // Run validation for skills only
+      const validationErrors = Validation(updatedFormData);
+      setError((prevErrors) => ({
+        ...prevErrors,
+        skills: validationErrors.skills || "",
       }));
-    }
-  };
+
+      return updatedFormData;
+    });
+  } else {
+    setFormData((prev) => {
+      const updatedFormData = { ...prev, [name]: value };
+
+      // Run validation for just this field
+      const validationErrors = Validation(updatedFormData);
+      setError((prevErrors) => ({
+        ...prevErrors,
+        [name]: validationErrors[name] || "",
+      }));
+
+      return updatedFormData;
+    });
+  }
+};
   const handleBlur = () => {};
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,6 +94,23 @@ const Form = () => {
           onChange={handleChange}
         ></InputField>
          {error.password && <p className="error">{error.password}</p>}
+
+         <InputField
+          type="month"
+          name="expirymonth"
+          value={formData.expirymonth}
+          placeholder="Expiry Date"
+          onChange={handleChange}
+        ></InputField>
+         {error.expirymonth && <p className="error">{error.expirymonth}</p>}
+          <InputField
+          type="number"
+          name="expiryyear"
+          value={formData.expiryyear}
+          placeholder="Expiry Year"
+          onChange={handleChange}
+        ></InputField>
+         {error.expiryyear && <p className="error">{error.expiryyear}</p>}
         <SelectField
           label="Gender"
           name="gender"

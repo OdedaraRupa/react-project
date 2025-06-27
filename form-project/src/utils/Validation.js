@@ -1,5 +1,6 @@
 export default function Validation(formData){
   const errors = {};
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if(!formData.name.trim()){
     errors.name = "Name is required !";
   }
@@ -7,7 +8,7 @@ export default function Validation(formData){
   if(!formData.email){
     errors.email = "Email is Required !";
   }
-  else if(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)){
+  else if(!emailRegex.test(formData.email)){
     errors.email = "Email is Invalid"
   }
 
@@ -37,10 +38,10 @@ export default function Validation(formData){
     errors.courseType = "Please select a course type";
   }
 
-  // if(!formData.gender){
-  //   errors.gender = "Please Select Gender";
+  if(!formData.gender){
+    errors.gender = "Please Select Gender";
 
-  // }
+  }
 
   
   return errors;
