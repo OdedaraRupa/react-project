@@ -30,6 +30,28 @@ export default function Validation(formData){
     errors.password = "Password must contain at least one special character (!@#$%^&*)";
   }
 
+  if(!formData.expirymonth.trim()){
+    errors.expirymonth = "Expiry Month is required";
+  }else if(isNaN(formData.expirymonth) ||
+    Number(formData.expirymonth) < 1 ||
+    Number(formData.expirymonth) > 12 ){
+    errors.expirymonth = "Enter a valid month (1-12)"
+  }
+
+  if(!formData.expiryyear.trim()){
+    errors.expiryyear = "Expiry year is required"
+  }
+  else if(!/^\d{2}$/.test(formData.expiryyear)){
+    errors.expiryyear = "Enter a valid 2 digit year"
+  }
+
+  if(!formData.cvv.trim()){
+    errors.cvv = "CVV is required";
+  }
+  else if(!/^\d{3,4}$/.test(formData.cvv)){
+    errors.cvv = "CVV must be 3 or 4 digits";
+  }
+
   if(!formData.skills || formData.skills.length === 0){
     errors.skills = "Select at least one skils";
 

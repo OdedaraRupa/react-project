@@ -16,42 +16,43 @@ const Form = () => {
     skills: [],
     expirymonth: "",
     expiryyear: "",
+    cvv: "",
   });
 
   const handleChange = (name, value) => {
-  if (name === "skills") {
-    setFormData((prev) => {
-      const updatedSkills = prev.skills.includes(value)
-        ? prev.skills.filter((item) => item !== value)
-        : [...prev.skills, value];
+    if (name === "skills") {
+      setFormData((prev) => {
+        const updatedSkills = prev.skills.includes(value)
+          ? prev.skills.filter((item) => item !== value)
+          : [...prev.skills, value];
 
-      // Update formData
-      const updatedFormData = { ...prev, skills: updatedSkills };
+        // Update formData
+        const updatedFormData = { ...prev, skills: updatedSkills };
 
-      // Run validation for skills only
-      const validationErrors = Validation(updatedFormData);
-      setError((prevErrors) => ({
-        ...prevErrors,
-        skills: validationErrors.skills || "",
-      }));
+        // Run validation for skills only
+        const validationErrors = Validation(updatedFormData);
+        setError((prevErrors) => ({
+          ...prevErrors,
+          skills: validationErrors.skills || "",
+        }));
 
-      return updatedFormData;
-    });
-  } else {
-    setFormData((prev) => {
-      const updatedFormData = { ...prev, [name]: value };
+        return updatedFormData;
+      });
+    } else {
+      setFormData((prev) => {
+        const updatedFormData = { ...prev, [name]: value };
 
-      // Run validation for just this field
-      const validationErrors = Validation(updatedFormData);
-      setError((prevErrors) => ({
-        ...prevErrors,
-        [name]: validationErrors[name] || "",
-      }));
+        // Run validation for just this field
+        const validationErrors = Validation(updatedFormData);
+        setError((prevErrors) => ({
+          ...prevErrors,
+          [name]: validationErrors[name] || "",
+        }));
 
-      return updatedFormData;
-    });
-  }
-};
+        return updatedFormData;
+      });
+    }
+  };
   const handleBlur = () => {};
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +67,7 @@ const Form = () => {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -85,7 +86,7 @@ const Form = () => {
           placeholder="Email"
           onChange={handleChange}
         ></InputField>
-         {error.email && <p className="error" >{error.email}</p>}
+        {error.email && <p className="error">{error.email}</p>}
         <InputField
           type="password"
           name="password"
@@ -93,24 +94,33 @@ const Form = () => {
           placeholder="Password"
           onChange={handleChange}
         ></InputField>
-         {error.password && <p className="error">{error.password}</p>}
+        {error.password && <p className="error">{error.password}</p>}
 
-         <InputField
-          type="month"
+        <InputField
+          type="number"
           name="expirymonth"
           value={formData.expirymonth}
-          placeholder="Expiry Date"
+          placeholder="Expiry Month MM (e.g. 1-12)"
           onChange={handleChange}
         ></InputField>
-         {error.expirymonth && <p className="error">{error.expirymonth}</p>}
-          <InputField
+        {error.expirymonth && <p className="error">{error.expirymonth}</p>}
+        <InputField
           type="number"
           name="expiryyear"
           value={formData.expiryyear}
-          placeholder="Expiry Year"
+          placeholder="Expiry Year YY(e.g. 25)"
           onChange={handleChange}
         ></InputField>
-         {error.expiryyear && <p className="error">{error.expiryyear}</p>}
+        {error.expiryyear && <p className="error">{error.expiryyear}</p>}
+        <InputField
+          type="number"
+          name="cvv"
+          value={formData.cvv}
+          placeholder="Enter CVV"
+          onChange={handleChange}
+        ></InputField>
+        {error.cvv && <p className="error">{error.cvv}</p>}
+
         <SelectField
           label="Gender"
           name="gender"
@@ -124,7 +134,7 @@ const Form = () => {
           ]}
           required
         ></SelectField>
-         {error.gender && <p className="error">{error.gender}</p>}
+        {error.gender && <p className="error">{error.gender}</p>}
 
         <RadioGroup
           label="Course Type"
@@ -138,7 +148,7 @@ const Form = () => {
         >
           {" "}
         </RadioGroup>
-           {error.courseType && <p className="error">{error.courseType}</p>}
+        {error.courseType && <p className="error">{error.courseType}</p>}
         <CheckBox
           label="Select Your Skills"
           name="skills"
@@ -146,7 +156,7 @@ const Form = () => {
           selected={formData.skills}
           onChange={handleChange}
         ></CheckBox>
-         {error.skills && <p className="error">{error.skills}</p>}
+        {error.skills && <p className="error">{error.skills}</p>}
         <button type="submit">Submit</button>
       </form>
     </>
